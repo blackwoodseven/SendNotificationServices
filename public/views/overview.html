@@ -1,0 +1,90 @@
+{{ define "resource-links" }}
+<link nonce="zYEAmrlRGeu4I9d3oRD0EDRiuYc4Yde7BiCm" href="/js/overview.js" rel="prefetch preload" as="script"/>
+{{ end }}
+{{ define "content" }}
+
+      <div class="card-header">
+          <h5 class="card-title">{{ .title }}</h5>
+          <p class="card-subtitle text-muted">Current week is number <b>{{ .week }}</b> of {{ .year }}.</p>
+      </div>
+
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Register for the coffee date</h5>
+                <p class="card-text">Click Register to register for a coffee date. You only need to register once per year, and you will be automatically registered for all weeks until the end of the year. You can also re-register again next year or un-register yourself when going on holiday.</p>
+                <p class="card-text">Every week, at the beggining of the week, you can see here who your coffee date partners is/are. You will also get an email in relation to this.</p>
+                <p class="card-text">It is up to you to then talk and make this happen.</p>
+                <button class="btn btn-primary" data-user-id={{ .userID }} id="book">Register</button>
+              </div>
+
+              {{ if .currentDate }}
+
+              <div class="card-body">
+                <h6 class="card-title">This week's coffee date group is: </h6>
+                {{ range $u := .currentDate.Users }}
+                <p class="card-text">
+                  {{ $u.Name }}
+                </p>
+                {{ end }}
+              </div>
+              {{ end }}
+
+              <div class="col-md-12">
+                <div class="table-responsive">
+                  <table class="table table-sm">
+                    <thead>
+                      <tr>
+                        <th width="20%">Week Number</th>
+                        <th width="70%">Year</th>
+                        <th class="text-right" width="10%">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                    {{ range $b := .datesForUser }}
+                      <tr class="clickable" data-brand-id="{{ $b.ID }}">
+                        <td>{{ $b.Week }}</td>
+                        <td>{{ $b.Year }}</td>
+                        <td class="row-md-1 text-right">
+                            {{ if $b.Active }}
+                              <button data-toggle="tooltip" title="Delete"
+                                  class="btn btn-icon btn-sm btn-danger deactivateReg"
+                                  data-id="{{ $b.ID }}">
+                                  <i class="fas fa-trash-alt"></i>
+                              </button>
+                            {{ else }}
+                              <button data-toggle="tooltip" title="Activate"
+                                  class="btn btn-icon btn-sm btn-primary activateReg"
+                                  data-id="{{ $b.ID }}">
+                                  <i class="fas fa-check"></i>
+                              </button>
+                            {{ end }}
+                        </td>
+                      </tr>
+                    {{ end }}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+            
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+{{ end }}
+{{ define "scripts" }}
+<script nonce="zYEAmrlRGeu4I9d3oRD0EDRiuYc4Yde7BiCm" type="text/javascript" src="/js/overview.js"></script>
+{{ end }}

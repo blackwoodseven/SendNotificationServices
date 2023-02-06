@@ -1,0 +1,64 @@
+/* Override the label styles to look like headers.
+   Labels on headers make it expand on click.
+ */
+.card>label h4 {
+    color: #252422;
+    font-size: 1.5rem;
+}
+.card>label .text-muted {
+    font-size: 14px;
+}
+
+/* Collapsible styles below here */
+input[type='checkbox'].toggle {
+    display: none;
+}
+
+.collapsible-label {
+    display: block;
+    cursor: pointer;
+    transition: all 0.25s ease-out;
+}
+
+.collapsible-label:hover {
+    color: #666;
+}
+
+/* CSS for the arrow rendering and transform */
+.collapsible-label::before {
+    content: ' ';
+    display: inline-block;
+
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid currentColor;
+    vertical-align: middle;
+    margin-right: .7rem;
+    transform: translateY(-2px);
+
+    transition: transform .2s ease-out;
+}
+
+.toggle:checked + .card-header .collapsible-label::before {
+    transform: rotate(90deg) translateX(-3px);
+}
+
+/* This is where the magic happens */
+.collapsible-content>.collapsible-inner {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+    padding-bottom: 0px;
+}
+
+.toggle:checked ~ .collapsible-content>.collapsible-inner {
+    max-height: 800px;
+    overflow: scroll;
+}
+
+.filterByBtn {
+    border: solid 1px;
+    border-color: #66615b !important;
+    background-color: transparent !important;
+    color: #66615b !important;
+}

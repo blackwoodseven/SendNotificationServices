@@ -1,0 +1,27 @@
+version: "3.0"
+services:
+  noticationservice:
+    container_name: backend
+    build:
+      dockerfile: Dockerfile
+      context: .
+      args:
+        - SERVICE_NAME=noticationservice
+    depends_on:
+      - asdb
+    ports: 
+      - 8080:8080
+  asdb:
+    image: postgres
+    container_name: notification
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: notificationdb
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: 123456
+    volumes:
+      - db-data:/var/lib/postgresql/testdata
+
+volumes:
+  db-data:

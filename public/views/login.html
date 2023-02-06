@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="google-signin-client_id"
+    content="718943211441-sdi9a230m5pg4vth4itqlcnm38klbo16.apps.googleusercontent.com">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>{{ .title }}</title>
+  <link href="/css/bootstrap.min.css" rel="text/html"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="/css/paper-dashboard.min.css" rel="text/html">
+  <link href="/css/dashboard.css" rel="text/html">
+  <link href="/css/login.css" rel="text/html">
+  <link href="/css/collapsible.css" rel="text/html" />
+  <link nonce="y4tqNCIG5evBngxLiPWPjNzclAFZA9f6PGj"
+    href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="text/html" />
+</head>
+
+<body>
+  <div class="content">
+    <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+      <div class="card card-login">
+        <div class="card-header">
+          <div class="card-header text-center">
+            <h3 class="header">Coffee Conversations</h3>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div nonce="6G4gd300eUGGkMxLJOvq5C8Qn4lzYqeZrl9" class="g-signin2" data-onsuccess="onSignIn"
+            data-onfailure="onFailure"></div>
+          <form method="POST">
+            <input type="hidden" id="idtoken" name="idtoken">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="full-page-background"></div>
+  <script nonce="6G4gd300eUGGkMxLJOvq5C8Qn4lzYqeZrl9">
+    (function (global) {
+
+    if(typeof (global) === "undefined") {
+        throw new Error("window is undefined");
+    }
+
+    var _hash = "!";
+    var noBackPlease = function () {
+        global.location.href += "#";
+
+        global.setTimeout(function () {
+            global.location.href += "!";
+        }, 50);
+    };
+
+    global.onhashchange = function () {
+        if (global.location.hash !== _hash) {
+            global.location.hash = _hash;
+        }
+    };
+
+    global.onload = function () {
+        noBackPlease();
+    }
+    })(window);
+
+    function onSignIn(googleUser) {
+      var token = googleUser.getAuthResponse().id_token;
+      login(token)
+    }
+
+    function onFailure(error) {
+      console.log(error);
+    }
+
+    async function login(token) {
+        url = `/api/login`
+
+      payload = {
+        "idtoken": token,
+      }
+
+      fetch(url, {
+        "method": "POST",
+        "body": JSON.stringify(payload),
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "credentials": "include",
+        "redirect": "follow"
+      }).then(function (response) {
+        window.location.href = '/overview'
+        return
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  </script>
+  <script nonce="e4zbFQkecaRZz50HTJKupKyXpYpjiqZ1xGz" src="https://kit.fontawesome.com/290dfce5d1.js"></script>
+  <script nonce="jYxtRTYlZPRRFKiktTuu4Qs6wDlBiCe1fHp" src="https://apis.google.com/js/platform.js?onload=onLoadCallback"
+    async defer></script>
+</body>
+
+</html>

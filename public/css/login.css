@@ -1,0 +1,28 @@
+.full-page-background {
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    display: block;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: 50%;
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/d/d5/Nyhavn%2C_Copenhagen.jpg");
+    filter: brightness(50%);
+}
+
+.content {
+    position: relative;
+    z-index: 4;
+    padding-top: 30vh;
+    margin-top: 8vh;
+}
+
+.g-signin2 {
+    width: 100%;
+}
+
+.g-signin2>div {
+    margin: 0px auto;
+}

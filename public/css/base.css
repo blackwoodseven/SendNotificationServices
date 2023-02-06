@@ -1,0 +1,309 @@
+/* Add this class to possible long strings to simplify them with a hover text */
+.ellipsis
+{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.tooltip-inner {
+  width: auto;
+  max-width: 100%;
+}
+
+h6 {
+  font-size: 1.15rem;
+  font-weight: 400;
+  text-transform: none;
+}
+
+hr {
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+}
+
+.card .card-header {
+  padding: .75rem 1.0rem 0rem;
+}
+
+.card .card-body {
+  padding: 1.0rem;
+}
+
+.cardi-stats .card-body {
+  padding: 1.0rem 1.0rem 0rem;
+}
+
+.card .card-footer {
+  padding: 0rem 1.0rem 1.0rem 1.0rem;
+}
+
+.card-stats .card-footer {
+  padding: 0rem 1.0rem 1.0rem 1.0rem;
+}
+
+.dd-icon {
+  color: #66615b;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.dd-icon:hover {
+  color: #51cbce;
+  cursor: pointer;
+}
+
+.dd-input {
+  display: none;
+}
+
+.dd-menu {
+  position: absolute;
+  top: 100%;
+  right: 0px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0;
+  margin: 2px 0 0 0;
+  box-shadow: 0 0 6px 0 rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  list-style-type: none;
+  z-index: 1;
+}
+
+.dd-input + .dd-menu {
+  display: none;
+}
+
+.dd-input:checked + .dd-menu {
+  display: block;
+}
+
+.dd-menu li {
+  padding: 10px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.dd-menu li:hover {
+  background-color: #f6f6f6;
+}
+
+.dd-menu li a {
+  display: block;
+  margin: -10px -20px;
+  padding: 10px 20px;
+}
+
+.dd-menu li.divider{
+  padding: 0;
+  border-bottom: 1px solid #cccccc;
+}
+
+.main-panel {
+  height: auto;
+  min-height: 100%;
+}
+
+.off-canvas-sidebar .sidebar-wrapper, .sidebar .sidebar-wrapper {
+  overflow: hidden;
+  overflow-y: scroll;
+  padding-bottom: 0;
+  bottom: 0;
+  top: 0;
+}
+
+.sidebar-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.user {
+  padding-bottom: 20px;
+  margin: 20px auto 0;
+  position: relative;
+}
+
+.photo {
+  width: 34px;
+  height: 34px;
+  overflow: hidden;
+  float: left;
+  z-index: 5;
+  margin-right: 10px;
+  border-radius: 50%;
+  margin-left: 23px;
+}
+
+.info>a {
+  display: block;
+  line-height: 18px;
+  text-decoration: none;
+  padding: .5rem 15px;
+}
+
+.info>a>span {
+  display: block;
+  position: relative;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.info .caret {
+  position: absolute;
+  top: 8px;
+  right: 18px;
+}
+
+a[data-toggle=collapse][aria-expanded=true] .caret {
+  transform: rotate(180deg);
+}
+
+.off-canvas-sidebar .user:after,
+.sidebar .user:after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  right: 15px;
+  width: calc(100% - 30px);
+  height: 1px;
+  background-color: #66615b;
+}
+
+.admin {
+  padding-bottom: 20px;
+  margin: 20px auto 0;
+  position: relative;
+}
+
+.admin>p {
+  color: #66615b;
+  margin-left: 11px;
+  text-transform: uppercase;
+}
+
+.navbar {
+  padding-left: 5px;
+}
+
+.sidebar-mini-icon {
+  text-transform: uppercase;
+  width: 34px;
+  margin-right: 10px;
+  margin-left: 0;
+  font-size: 12px;
+  text-align: center;
+  line-height: 20px;
+  position: relative;
+  float: left;
+  z-index: 1;
+  display: inherit;
+}
+
+.sidebar-normal {
+  text-transform: capitalize;
+  line-height: 20px;
+  text-align: center;
+  position: relative;
+  float: left;
+}
+
+.popover {
+  position: fixed;
+  display: none;
+  top: 125px;
+  left: 50px;
+  min-width: 200px;
+  min-height: 44px;
+  clear: both;
+}
+
+.popover>#organizationSpinner {
+  left: calc(50% - 8px);
+  top: calc(50% - 8px);
+  position: absolute;
+}
+
+.popover>#settingsSpinner {
+  position: relative;
+}
+
+.activePageButton {
+  pointer-events: none;
+}
+
+.active-cyan-2 input.form-control[type=text]:focus:not([readonly]) {
+  border-bottom: 1px solid #4dd0e1;
+  box-shadow: 0 1px 0 0 #4dd0e1;
+}
+
+#organizations {
+  overflow: scroll;
+  max-height: 30rem;
+  overflow-x: hidden;
+}
+
+.modelTypeGroup {
+  padding: 0px !important;
+}
+
+.bootstrap-select>.dropdown-toggle{
+  white-space: normal;
+}
+
+.bootstrap-select>.dropdown-menu{
+  margin-left: 25px !important;
+}
+
+.bootstrap-select.show-tick .dropdown-menu .selected span.check-mark   {
+  top: auto !important;
+}
+
+.badgeNoteBtn {
+  position: relative;
+  top: -40px;
+  right: -7px;
+  display:inline-block;
+  min-width:10px;
+  padding:3px 7px;
+  font-size:12px;
+  font-weight:700;
+  line-height:1;
+  color:#fff;
+  text-align:center;
+  white-space:nowrap;
+  vertical-align:baseline;
+  background-color:#EF8256;
+  border-radius:10px;
+}
+
+.tdbreak {
+  word-break: break-all;
+}
+
+#ui-tag-table {
+  display:flex;
+  flex-flow:column;
+  width:100%;
+}
+
+#ui-tag-thead {
+  flex: 0 0 auto;
+}
+
+#ui-tag-tbody {
+  flex: 1 1 auto;
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 210px;
+}
+
+#ui-tag-theadRow {
+  width:100%;
+  display:table;
+}
+
+#ui-tag-tbodyRow {
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+}

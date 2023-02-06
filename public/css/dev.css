@@ -1,0 +1,21 @@
+.sidebar-normal {
+    text-transform: capitalize;
+    line-height: 20px;
+    text-align: center;
+    position: relative;
+    float: left;
+}
+
+.popover {
+    position: fixed;
+    display: none;
+    top: 125px;
+    left: 50px;
+    min-width: 200px;
+    min-height: 44px;
+    clear: both;
+}
+
+.tooltip {
+    top: 100px !important;
+}

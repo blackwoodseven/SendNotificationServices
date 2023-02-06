@@ -1,0 +1,33 @@
+body {
+  position: relative;
+  height: 100vh;
+}
+
+.content {
+  position: absolute;
+  text-align: center;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-image: url("/img/gopher.png");
+  width: 768px;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+h1 {
+  padding-top: 32px;
+  font-family: 'Cabin', sans-serif;
+  font-size: 32px;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-family: 'Cabin', sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+}
