@@ -32,5 +32,6 @@ func (r *repository) Configure() {
 	engine.Use(gin.Logger())
 	engine.Use(gin.Recovery())
 	api := engine.Group("/api")
+	api.GET("/health", r.Health.GetHealth)
 	api.POST("/requestnotification/sendrequest", r.RequestNotification.RequestNotification)
 }
