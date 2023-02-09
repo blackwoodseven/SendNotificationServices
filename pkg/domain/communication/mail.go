@@ -2,7 +2,8 @@ package communication
 
 import (
 	"crypto/tls"
-	"log"
+
+	"github.com/rajivganesamoorthy-kantar/SendNotificationServices/pkg/logger"
 
 	"gopkg.in/gomail.v2"
 )
@@ -30,7 +31,7 @@ func SendEmail(communicationmodel CommunicationModel) bool {
 	n := gomail.NewDialer(MailSMTP, MailSMPTPort, mailfrom, mailcredentials)
 	n.TLSConfig = &tls.Config{InsecureSkipVerify: false}
 	if err := n.DialAndSend(email); err != nil {
-		log.Println("Error while delivering mail:", err)
+		logger.Log("", logger.SeverityCritical, "Error while delivering mail", err, nil)
 		return false
 	}
 	return true

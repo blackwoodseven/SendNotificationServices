@@ -10,9 +10,9 @@ import (
 )
 
 var (
-	ErrAuthTokenEmpty = errors.New("Authorization token can't be empty")
-	ErrBadRequest     = errors.New("Bad request, invalid paramter(s)")
-	ErrSlackOrEmail   = errors.New("Couldn't deliver the message to slack or email")
+	ErrUnAuthorizedToken = errors.New("Unauthorized Token")
+	ErrBadRequest        = errors.New("Bad request, invalid paramter(s)")
+	ErrSlackOrEmail      = errors.New("Couldn't deliver the message to slack or email")
 )
 
 type RequestResponse struct {
@@ -23,8 +23,8 @@ func (r *repository) RequestNotification(c *gin.Context) {
 	var req requestnotification.RequestNotification
 	var authtoken = c.Request.Header["Authorization"][0]
 
-	if len(authtoken) == 0 {
-		handleError(c, http.StatusInternalServerError, ErrAuthTokenEmpty)
+	if !r.NotificationRequest.ValidateToken(authtoken) {
+		handleError(c, http.StatusUnauthorized, ErrUnAuthorizedToken)
 		return
 	}
 

@@ -45,6 +45,20 @@ func (_m *Domain) Scheduler() {
 	_m.Called()
 }
 
+// ValidateToken provides a mock function with given fields: token
+func (_m *Domain) ValidateToken(token string) bool {
+	ret := _m.Called(token)
+
+	var r0 bool
+	if rf, ok := ret.Get(0).(func(string) bool); ok {
+		r0 = rf(token)
+	} else {
+		r0 = ret.Get(0).(bool)
+	}
+
+	return r0
+}
+
 type mockConstructorTestingTNewDomain interface {
 	mock.TestingT
 	Cleanup(func())

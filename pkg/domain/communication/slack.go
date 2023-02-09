@@ -2,8 +2,8 @@ package communication
 
 import (
 	"errors"
-	"log"
 
+	"github.com/rajivganesamoorthy-kantar/SendNotificationServices/pkg/logger"
 	"github.com/slack-go/slack"
 )
 
@@ -32,7 +32,7 @@ func SendSlackMessage(communicationmodel CommunicationModel) bool {
 
 	_, _, _, err := slackapi.SendMessage(slackchannelid, msg)
 	if err != nil {
-		log.Println("Error while sending message to slack:", err)
+		logger.Log("", logger.SeverityCritical, "Error while sending message to slack", err, nil)
 		return false
 	}
 	return true
