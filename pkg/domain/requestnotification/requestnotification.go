@@ -26,12 +26,14 @@ func (d *domain) RequestNotification(requestnotification RequestNotification) (b
 		Subject:    requestnotification.Subject,
 		Message:    requestnotification.Message,
 	}
+	if !d.NotificationRequest.ComponentExists(models.ComponentID, models.ComponentName) {
+		models.AuthToken = utility.Encrypt(hex.EncodeToString([]byte(utility.GetRamdomKey())), requestnotification.AuthToken)
 
-	models.AuthToken = utility.Encrypt(hex.EncodeToString([]byte(utility.GetRamdomKey())), requestnotification.AuthToken)
-	err := d.NotificationRequest.Create(&models)
-	fmt.Println("err: ", err)
-	if err != nil {
-		return false, false, false
+		err := d.NotificationRequest.Create(&models)
+		fmt.Println("err: ", err)
+		if err != nil {
+			return false, false, false
+		}
 	}
 
 	slackmessagedelivered, emaildelivered := false, false

@@ -1,6 +1,8 @@
 package notificationrequest
 
 import (
+	"fmt"
+
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )
@@ -9,6 +11,7 @@ type Repository interface {
 	Create(n *NotificationRequest) error
 	GetAll() ([]*NotificationRequest, error)
 	UpdateHashkey(n *NotificationRequest) error
+	ComponentExists(id string, name string) bool
 }
 
 type service struct {
@@ -43,4 +46,19 @@ func (r *service) GetAll() ([]*NotificationRequest, error) {
 
 func (r *service) UpdateHashkey(n *NotificationRequest) error {
 	return r.db.Save(&n).Error
+}
+
+func (r *service) ComponentExists(componentid string, componentname string) bool {
+	var count int64
+	err := r.db.
+		Model(&NotificationRequest{}).
+		Where("componentid = ?", componentid).
+		Where("componentname = ?", componentname).
+		Count(&count).Error
+	fmt.Println("Compid : ", componentid, " compname : ", componentname, " count : ", count)
+	if err != nil {
+		return false
+	}
+
+	return count > 0
 }

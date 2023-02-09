@@ -57,13 +57,17 @@ func TestRequestNotification(t *testing.T) {
 	for i, c := range cases {
 		switch i {
 		case 1:
+			rmock.On("ComponentExists", mock.Anything, mock.Anything).Return(false).Once()
 			rmock.On("Create", mock.Anything).Return(nil).Once()
 		case 2:
 			err = errors.New("error")
+			rmock.On("ComponentExists", mock.Anything, mock.Anything).Return(false).Once()
 			rmock.On("Create", mock.Anything).Return(err).Once()
 		case 3:
+			rmock.On("ComponentExists", mock.Anything, mock.Anything).Return(false).Once()
 			rmock.On("Create", mock.Anything).Return(nil).Once()
 		}
+
 		status, slack, mail := notificationreq.RequestNotification(c.requestnotification)
 
 		if err == nil {

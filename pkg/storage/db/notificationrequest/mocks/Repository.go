@@ -12,6 +12,20 @@ type Repository struct {
 	mock.Mock
 }
 
+// ComponentExists provides a mock function with given fields: id, name
+func (_m *Repository) ComponentExists(id string, name string) bool {
+	ret := _m.Called(id, name)
+
+	var r0 bool
+	if rf, ok := ret.Get(0).(func(string, string) bool); ok {
+		r0 = rf(id, name)
+	} else {
+		r0 = ret.Get(0).(bool)
+	}
+
+	return r0
+}
+
 // Create provides a mock function with given fields: n
 func (_m *Repository) Create(n *notificationrequest.NotificationRequest) error {
 	ret := _m.Called(n)
