@@ -30,7 +30,6 @@ type Input struct {
 type Domain interface {
 	RequestNotification(requestnotification RequestNotification) (bool, bool, bool)
 	Scheduler()
-	ValidateToken(token string) bool
 }
 
 var (

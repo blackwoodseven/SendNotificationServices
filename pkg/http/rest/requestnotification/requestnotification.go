@@ -23,7 +23,7 @@ func (r *repository) RequestNotification(c *gin.Context) {
 	var req requestnotification.RequestNotification
 	var authtoken = c.Request.Header["Authorization"][0]
 
-	if !r.NotificationRequest.ValidateToken(authtoken) {
+	if len(authtoken) == 0 {
 		handleError(c, http.StatusUnauthorized, ErrUnAuthorizedToken)
 		return
 	}

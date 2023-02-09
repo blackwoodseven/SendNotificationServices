@@ -3,6 +3,7 @@ package requestnotification
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"testing"
 
@@ -14,7 +15,6 @@ import (
 	domain "github.com/rajivganesamoorthy-kantar/SendNotificationServices/pkg/domain/requestnotification"
 	domainmock "github.com/rajivganesamoorthy-kantar/SendNotificationServices/pkg/domain/requestnotification/mocks"
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/mock"
 )
 
 type TestRequest struct {
@@ -101,30 +101,30 @@ func TestRequestNotification(t *testing.T) {
 		switch i {
 		case 1:
 			status, slack, mail = false, false, false
-			dmock.On("ValidateToken", mock.Anything).Return(c.isValidToken).Once()
 		case 2:
 			status, slack = true, true
 			mail = false
-			dmock.On("ValidateToken", mock.Anything).Return(c.isValidToken).Once()
 		case 3:
 			status, slack, mail = true, true, true
-			dmock.On("ValidateToken", mock.Anything).Return(c.isValidToken).Once()
 			dmock.On("RequestNotification", c.RequestInput).Return(status, slack, mail).Once()
 
 		case 4:
 			status, slack, mail = true, true, false
-			dmock.On("ValidateToken", mock.Anything).Return(c.isValidToken).Once()
 			dmock.On("RequestNotification", c.RequestInput).Return(status, slack, mail).Once()
 		}
 		requestnotification.RequestNotification(httpcontext)
 		if status && slack && mail && c.isValidToken && c.inputValidation {
 			assert.EqualValues(t, http.StatusOK, h.Code)
+			fmt.Println(http.StatusOK, h.Code)
 		} else if !c.isValidToken {
 			assert.EqualValues(t, http.StatusUnauthorized, h.Code)
+			fmt.Println(http.StatusUnauthorized, h.Code)
 		} else if status && (slack || mail) && c.inputValidation {
 			assert.EqualValues(t, http.StatusInternalServerError, h.Code)
+			fmt.Println(http.StatusInternalServerError, h.Code)
 		} else {
 			assert.EqualValues(t, http.StatusBadRequest, h.Code)
+			fmt.Println(http.StatusBadRequest, h.Code)
 		}
 	}
 }

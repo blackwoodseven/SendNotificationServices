@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/rajivganesamoorthy-kantar/SendNotificationServices/pkg/domain/auth"
 	"github.com/rajivganesamoorthy-kantar/SendNotificationServices/pkg/domain/communication"
 	"github.com/rajivganesamoorthy-kantar/SendNotificationServices/pkg/domain/utility"
 	"github.com/rajivganesamoorthy-kantar/SendNotificationServices/pkg/storage/db/notificationrequest"
@@ -63,20 +62,4 @@ func (d *domain) communication() (bool, bool) {
 	}
 
 	return slackmessagedelivered, emaildelivered
-}
-
-func (d *domain) ValidateToken(authToken string) bool {
-
-	if len(authToken) == 0 {
-		return false
-	}
-	claims, err := auth.ValidateGSuiteToken(authToken)
-	if err != nil {
-		return false
-	}
-	if claims != nil && claims.Hd != "blackwoodseven.com" && claims.Hd != "kantar.com" {
-		return false
-	}
-
-	return true
 }
