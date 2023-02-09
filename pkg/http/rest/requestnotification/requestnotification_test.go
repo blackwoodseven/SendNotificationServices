@@ -109,12 +109,12 @@ func TestRequestNotification(t *testing.T) {
 		case 3:
 			status, slack, mail = true, true, true
 			dmock.On("ValidateToken", mock.Anything).Return(c.isValidToken).Once()
-			dmock.On("RequestNotification", c.RequestInput).Return(true, true, true).Once()
+			dmock.On("RequestNotification", c.RequestInput).Return(status, slack, mail).Once()
 
 		case 4:
 			status, slack, mail = true, true, false
 			dmock.On("ValidateToken", mock.Anything).Return(c.isValidToken).Once()
-			dmock.On("RequestNotification", c.RequestInput).Return(true, true, false).Once()
+			dmock.On("RequestNotification", c.RequestInput).Return(status, slack, mail).Once()
 		}
 		requestnotification.RequestNotification(httpcontext)
 		if status && slack && mail && c.isValidToken && c.inputValidation {
