@@ -3,11 +3,16 @@ package requestnotification
 import (
 	"encoding/hex"
 	"fmt"
-	"strings"
 
 	"github.com/rajivganesamoorthy-kantar/SendNotificationServices/pkg/domain/communication"
 	"github.com/rajivganesamoorthy-kantar/SendNotificationServices/pkg/domain/utility"
 	"github.com/rajivganesamoorthy-kantar/SendNotificationServices/pkg/storage/db/notificationrequest"
+)
+
+const (
+	Slack string = "SLACK"
+	Mail  string = "MAIL"
+	All   string = "All"
 )
 
 func (d *domain) RequestNotification(requestnotification RequestNotification) (bool, bool, bool) {
@@ -40,15 +45,16 @@ func (d *domain) communication() (bool, bool) {
 	slackmessagedelivered, emaildelivered := false, false
 
 	for communicationmodel := range d.incoming {
-		if strings.ToUpper(communicationmodel.MediumType) == "SLACK" {
+
+		switch communicationmodel.MediumType {
+
+		case Slack:
 			emaildelivered = true
 			slackmessagedelivered = communication.SendSlackMessage(communicationmodel)
-		}
-		if strings.ToUpper(communicationmodel.MediumType) == "MAIL" {
+		case Mail:
 			slackmessagedelivered = true
 			emaildelivered = communication.SendEmail(communicationmodel)
-		}
-		if strings.ToUpper(communicationmodel.MediumType) == "ALL" {
+		case All:
 			slackmessagedelivered = communication.SendSlackMessage(communicationmodel)
 			emaildelivered = communication.SendEmail(communicationmodel)
 		}

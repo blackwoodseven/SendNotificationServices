@@ -15,13 +15,21 @@ var (
 	ErrSlackOrEmail      = errors.New("Couldn't deliver the message to slack or email")
 )
 
+const (
+	Slack           string = "SLACK"
+	Mail            string = "MAIL"
+	All             string = "ALL"
+	Authorization   string = "Authorization"
+	ResponseMessage string = "Notification delivered to slack and mail"
+)
+
 type RequestResponse struct {
 	Message string `json:"message"`
 }
 
 func (r *repository) RequestNotification(c *gin.Context) {
 	var req requestnotification.RequestNotification
-	var authtoken = c.Request.Header["Authorization"][0]
+	var authtoken = c.Request.Header[Authorization][0]
 
 	if len(authtoken) == 0 {
 		handleError(c, http.StatusUnauthorized, ErrUnAuthorizedToken)
@@ -48,7 +56,7 @@ func (r *repository) RequestNotification(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, RequestResponse{Message: "Notification delivered to slack and mail"})
+	c.JSON(http.StatusOK, RequestResponse{Message: ResponseMessage})
 }
 
 func ValidateInput(req requestnotification.RequestNotification) bool {
@@ -57,16 +65,22 @@ func ValidateInput(req requestnotification.RequestNotification) bool {
 		return false
 	}
 
-	if strings.ToUpper(req.MediumType) == "SLACK" && req.SlackID == "" {
+	if strings.ToUpper(req.MediumType) == Slack && req.SlackID == "" {
 		return false
 	}
 
-	if strings.ToUpper(req.MediumType) == "EMAIL" && req.EmailID == "" {
+	if strings.ToUpper(req.MediumType) == Mail && req.EmailID == "" {
 		return false
 	}
 
-	if strings.ToUpper(req.MediumType) != "EMAIL" || strings.ToUpper(req.MediumType) != "SLACK" || strings.ToUpper(req.MediumType) != "ALL" {
+	switch strings.ToUpper(req.MediumType) {
+	case Mail:
+		return true
+	case Slack:
+		return true
+	case All:
+		return true
+	default:
 		return false
 	}
-	return true
 }
