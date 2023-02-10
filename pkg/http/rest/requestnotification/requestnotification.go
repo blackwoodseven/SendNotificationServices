@@ -3,6 +3,7 @@ package requestnotification
 import (
 	"errors"
 	"net/http"
+	"net/mail"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -75,12 +76,31 @@ func ValidateInput(req requestnotification.RequestNotification) bool {
 
 	switch strings.ToUpper(req.MediumType) {
 	case Mail:
-		return true
+		return validateEmails(req.EmailID)
 	case Slack:
 		return true
 	case All:
 		return true
 	default:
 		return false
+	}
+}
+
+func validateEmails(emailaddress string) bool {
+	if strings.Contains(emailaddress, ",") {
+		emailIds := strings.Split(emailaddress, ",")
+		for _, emailId := range emailIds {
+			_, err := mail.ParseAddress(emailId)
+			if err != nil {
+				return false
+			}
+		}
+		return true
+	} else {
+		_, err := mail.ParseAddress(emailaddress)
+		if err != nil {
+			return false
+		}
+		return true
 	}
 }
