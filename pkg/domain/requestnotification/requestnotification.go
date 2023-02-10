@@ -10,25 +10,13 @@ import (
 	"github.com/rajivganesamoorthy-kantar/SendNotificationServices/pkg/storage/db/notificationrequest"
 )
 
-var EncncryptionKey = "ENCRYPTION_KEY"
-
 func (d *domain) RequestNotification(requestnotification RequestNotification) (bool, bool, bool) {
 
-	models := notificationrequest.NotificationRequest{
-		ComponentID:   requestnotification.ComponentID,
-		ComponentName: requestnotification.ComponentName,
-	}
+	models := getNotificationRequest(requestnotification)
+	communicationmodel := getCommunicationModel(requestnotification)
 
-	communicationmodel := communication.CommunicationModel{
-		MediumType: requestnotification.MediumType,
-		SlackID:    requestnotification.SlackID,
-		EmailID:    requestnotification.EmailID,
-		Subject:    requestnotification.Subject,
-		Message:    requestnotification.Message,
-	}
 	if !d.NotificationRequest.ComponentExists(models.ComponentID, models.ComponentName) {
 		models.AuthToken = utility.Encrypt(hex.EncodeToString([]byte(utility.GetRamdomKey())), requestnotification.AuthToken)
-
 		err := d.NotificationRequest.Create(&models)
 		fmt.Println("err: ", err)
 		if err != nil {
@@ -37,6 +25,7 @@ func (d *domain) RequestNotification(requestnotification RequestNotification) (b
 	}
 
 	slackmessagedelivered, emaildelivered := false, false
+
 	go func() {
 		slackmessagedelivered, emaildelivered = d.communication()
 	}()
@@ -47,7 +36,9 @@ func (d *domain) RequestNotification(requestnotification RequestNotification) (b
 }
 
 func (d *domain) communication() (bool, bool) {
+
 	slackmessagedelivered, emaildelivered := false, false
+
 	for communicationmodel := range d.incoming {
 		if strings.ToUpper(communicationmodel.MediumType) == "SLACK" {
 			emaildelivered = true
@@ -64,4 +55,23 @@ func (d *domain) communication() (bool, bool) {
 	}
 
 	return slackmessagedelivered, emaildelivered
+}
+
+func getCommunicationModel(requestnotification RequestNotification) communication.CommunicationModel {
+
+	return communication.CommunicationModel{
+		MediumType: requestnotification.MediumType,
+		SlackID:    requestnotification.SlackID,
+		EmailID:    requestnotification.EmailID,
+		Subject:    requestnotification.Subject,
+		Message:    requestnotification.Message,
+	}
+}
+
+func getNotificationRequest(requestnotification RequestNotification) notificationrequest.NotificationRequest {
+
+	return notificationrequest.NotificationRequest{
+		ComponentID:   requestnotification.ComponentID,
+		ComponentName: requestnotification.ComponentName,
+	}
 }

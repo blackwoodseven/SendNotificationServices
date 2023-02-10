@@ -64,5 +64,9 @@ func ValidateInput(req requestnotification.RequestNotification) bool {
 	if strings.ToUpper(req.MediumType) == "EMAIL" && req.EmailID == "" {
 		return false
 	}
+
+	if strings.ToUpper(req.MediumType) != "EMAIL" || strings.ToUpper(req.MediumType) != "SLACK" || strings.ToUpper(req.MediumType) != "ALL" {
+		return false
+	}
 	return true
 }
